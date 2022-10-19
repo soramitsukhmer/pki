@@ -4,9 +4,9 @@ Soramitsu Khmer established the Soramitsu Khmer Trusted Certificates in support 
 
 ## Root CA
 
+- **Common Name**: `Soramitsu Khmer Root CA`
 - **Organization**: `Soramitsu Khmer CO., LTD.`
 - **Organizational Unit**: `www.soramitsukhmer.com`
-- **Common Name**: `Soramitsu Khmer Root CA`
 - **Expires**: `Friday, 18 October 2047 at 5:09:41 PM Indochina Time (25 years)`
 - **Serial Number**: `1`
 - **Fingerprints**:
@@ -15,9 +15,9 @@ Soramitsu Khmer established the Soramitsu Khmer Trusted Certificates in support 
 
 ## Soramitsu Khmer TLS 2022 ICA1
 
+- **Common Name**: `Soramitsu Khmer TLS 2022 ICA1`
 - **Organization**: `Soramitsu Khmer CO., LTD.`
 - **Organizational Unit**: `Soramitsu Khmer Certification Authority`
-- **Common Name**: `Soramitsu Khmer TLS 2022 ICA1`
 - **Expires**: `Tuesday, 19 October 2032 at 3:31:21 PM Indochina Time (10 years)`
 - **Serial Number**: `12 2F 7F E0 F5 DF B2 88 D0 B1 C8 D8 CC 6F 7D 7A`
 - **Fingerprints**:
@@ -27,9 +27,9 @@ Soramitsu Khmer established the Soramitsu Khmer Trusted Certificates in support 
 
 ## Soramitsu Khmer TLS 2022 ICA2
 
+- **Common Name**: `Soramitsu Khmer TLS 2022 ICA2`
 - **Organization**: `Soramitsu Khmer CO., LTD.`
 - **Organizational Unit**: `Soramitsu Khmer Certification Authority`
-- **Common Name**: `Soramitsu Khmer TLS 2022 ICA1`
 - **Expires**: `Tuesday, 19 October 2032 at 3:41:20 PM Indochina Time (10 years)`
 - **Serial Number**: `00 A4 9C 12 57 A0 83 44 57 8C F9 D3 AF 7B 0A 2B 09`
 - **Fingerprints**:
