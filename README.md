@@ -13,7 +13,7 @@ Soramitsu Khmer established the Soramitsu Khmer Trusted Certificates in support 
 
 ## Certificate Revocation Lists
 
-> Pending
+- [Soramitsu Khmer Root CLR](/#)
 
 ## Root Certificate Program
 
