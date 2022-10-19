@@ -18,7 +18,7 @@ Soramitsu Khmer established the Soramitsu Khmer Trusted Certificates in support 
 - **Organization**: `Soramitsu Khmer CO., LTD.`
 - **Organizational Unit**: `Soramitsu Khmer Certification Authority`
 - **Common Name**: `Soramitsu Khmer TLS 2022 ICA1`
-- **Expires**: `Tuesday, 19 October 2032 at 3:31:21 PM Indochina Time (5 years)`
+- **Expires**: `Tuesday, 19 October 2032 at 3:31:21 PM Indochina Time (10 years)`
 - **Serial Number**: `12 2F 7F E0 F5 DF B2 88 D0 B1 C8 D8 CC 6F 7D 7A`
 - **Fingerprints**:
   - **SHA256**: `AD D0 BC AA 12 35 F6 72 1F E3 36 B3 DB A4 A0 61 08 93 BF 92 47 F5 CC D3 2D C2 0C 5C D5 7B B9 A7`
@@ -30,7 +30,7 @@ Soramitsu Khmer established the Soramitsu Khmer Trusted Certificates in support 
 - **Organization**: `Soramitsu Khmer CO., LTD.`
 - **Organizational Unit**: `Soramitsu Khmer Certification Authority`
 - **Common Name**: `Soramitsu Khmer TLS 2022 ICA1`
-- **Expires**: `Tuesday, 19 October 2032 at 3:41:20 PM Indochina Time (5 years)`
+- **Expires**: `Tuesday, 19 October 2032 at 3:41:20 PM Indochina Time (10 years)`
 - **Serial Number**: `00 A4 9C 12 57 A0 83 44 57 8C F9 D3 AF 7B 0A 2B 09`
 - **Fingerprints**:
   - **SHA256**: `05 F1 6D 72 B1 1A 3B B6 12 61 D9 58 BD 4D A0 05 92 59 8C D0 32 03 77 99 04 38 25 5C 98 0A 0F A2`
