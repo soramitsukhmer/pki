@@ -2,17 +2,22 @@
 
 Soramitsu Khmer established the Soramitsu Khmer PKI in support of the generation, issuance, distribution, revocation, administration, and management of public/private cryptographic keys that are contained in CA-signed X.509 Certificates.
 
-## Root Certificates
+Note: This version comes into effect November 1, 2022
+
+### Root Certificates
 
 - [Soramitsu Khmer Root CA](certificates/SoramitsuKhmerRootCA.crt)
 
-## Intermediate Certificates
+### Intermediate Certificates
 
 - [Soramitsu Khmer TLS 2022 ICA1](certificates/SoramitsuKhmerTLS2022ICA1.crt)
 - [Soramitsu Khmer TLS 2022 ICA2](certificates/SoramitsuKhmerTLS2022ICA2.crt)
 
-## Certificate Revocation Lists
+### Certificate Revocation Lists
 
 - [Soramitsu Khmer Root CLR](certificates/SoramitsuKhmerRootCA.crl)
 
 
+## Contact
+
+Contact the Soramitsu Khmer Infrastructure team at infrastructure.team@soramitsukhmer.com.
