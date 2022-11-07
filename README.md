@@ -2,7 +2,7 @@
 
 Soramitsu Khmer established the Soramitsu Khmer PKI in support of the generation, issuance, distribution, revocation, administration, and management of public/private cryptographic keys that are contained in CA-signed X.509 Certificates.
 
-Note: This version comes into effect November 1, 2022
+Note: This version comes into effect January 1, 2023
 
 ### Root Certificates
 
