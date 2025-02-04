@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+echo "Dumping all certificates in the current directory and subdirectories:"
+ls **/*.crt | xargs -I {} openssl x509 -text -noout -in {}

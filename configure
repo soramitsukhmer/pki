@@ -1,0 +1,53 @@
+#!/bin/bash
+set -e
+
+CERTSTRAP_BIN=certstrap
+# CERTSTRAP_BIN=/Users/socheat/Workspace/socheatsok78-lab/certstrap/certstrap
+
+ROOTCA_COMMON_NAME="SoramitsuKhmer ECC Root CA"
+ROOTCA_PASSPHRASE="RUY5MDU5NUQtRTE3NC00NkI5LThGNkUtQzRFQUY3OTdCMTQxCg=="
+_ROOTCA_COMMON_NAME=${ROOTCA_COMMON_NAME// /_}
+echo
+echo Generate Root Certification Authority: ${ROOTCA_COMMON_NAME}
+echo
+if [ ! -f "out/${_ROOTCA_COMMON_NAME}.crt" ]; then
+    ${CERTSTRAP_BIN} init \
+        --common-name "${ROOTCA_COMMON_NAME}" \
+        --organization "Soramitsu Khmer" \
+        --organizational-unit "Soramitsu Khmer Certification Authority" \
+        --country "KH" \
+        --expires "15 years" \
+        --curve "P-384" \
+        --passphrase "${ROOTCA_PASSPHRASE}" \
+        --exclude-path-length
+    mkdir -p "${ROOTCA_COMMON_NAME}"
+    cp out/${_ROOTCA_COMMON_NAME}.{crl,crt,key} "${ROOTCA_COMMON_NAME}"
+fi
+openssl x509 -in "out/${_ROOTCA_COMMON_NAME}.crt" -text -noout
+
+INTERMEDIATECAS=(
+    "SoramitsuKhmer ECC Domain Validation Certification Authority"
+    "SoramitsuKhmer ECC Developer ID Certification Authority"
+)
+
+for INTERMEDIATECA_COMMON_NAME in "${INTERMEDIATECAS[@]}"; do
+    echo
+    echo Generate Intermediate Certification Authority: ${INTERMEDIATECA_COMMON_NAME}
+    echo
+    _INTERMEDIATECA_PASSPHRASE=$(openssl rand -base64 32)
+    _INTERMEDIATECA_COMMON_NAME=${INTERMEDIATECA_COMMON_NAME// /_}
+    if [ ! -f "out/${_INTERMEDIATECA_COMMON_NAME}.crt" ]; then
+        ${CERTSTRAP_BIN} request-cert \
+            --common-name "${INTERMEDIATECA_COMMON_NAME}" \
+            --organization "Soramitsu Khmer" \
+            --organizational-unit "Soramitsu Khmer Certification Authority" \
+            --country "KH" \
+            --curve "P-384" \
+            --passphrase "${_INTERMEDIATECA_PASSPHRASE}"
+        ${CERTSTRAP_BIN} sign "${INTERMEDIATECA_COMMON_NAME}" --CA "${ROOTCA_COMMON_NAME}" --passphrase "${ROOTCA_PASSPHRASE}" --path-length 1 --intermediate
+        echo "${_INTERMEDIATECA_PASSPHRASE}" > "out/${_INTERMEDIATECA_COMMON_NAME}.passphrase"
+        mkdir -p "${INTERMEDIATECA_COMMON_NAME}"
+        cp out/${_INTERMEDIATECA_COMMON_NAME}.{csr,crt,key,passphrase} "${INTERMEDIATECA_COMMON_NAME}"
+    fi
+    openssl x509 -in "out/${_INTERMEDIATECA_COMMON_NAME}.crt" -text -noout
+done
