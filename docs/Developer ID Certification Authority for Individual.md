@@ -23,7 +23,7 @@ Once you receive the signed certificate, please import it into `~/PKI/out`. Plea
 
 ```bash
 # Request certificate signing for your domain
-certstrap request-sign --common-name "example.com" --dns example.com --curve "P-384"
+certstrap request-cert --common-name "example.com" --domain example.com --curve "P-384"
 
 # Sign the certificate using the Developer ID Certification Authority for Individual
 certstrap sign example.com --CA "Developer ID: $(whoami)"
