@@ -46,7 +46,12 @@ for INTERMEDIATECA_COMMON_NAME in "${INTERMEDIATECAS[@]}"; do
             --country "KH" \
             --curve "P-384" \
             --passphrase "${_INTERMEDIATECA_PASSPHRASE}"
-        ${CERTSTRAP_BIN} sign "${INTERMEDIATECA_COMMON_NAME}" --CA "${ROOTCA_COMMON_NAME}" --passphrase "${ROOTCA_PASSPHRASE}" --path-length 1 --intermediate
+        ${CERTSTRAP_BIN} sign "${INTERMEDIATECA_COMMON_NAME}" \
+            --CA "${ROOTCA_COMMON_NAME}" \
+            --passphrase "${ROOTCA_PASSPHRASE}" \
+            --expires "5 years" \
+            --path-length 1 \
+            --intermediate
         echo "${_INTERMEDIATECA_PASSPHRASE}" > "out/${_INTERMEDIATECA_COMMON_NAME}.passphrase"
         mkdir -p "${INTERMEDIATECA_COMMON_NAME}"
         cp out/${_INTERMEDIATECA_COMMON_NAME}.{csr,crt,key,passphrase} "${INTERMEDIATECA_COMMON_NAME}"
