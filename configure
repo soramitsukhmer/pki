@@ -4,13 +4,13 @@ set -e
 CERTSTRAP_BIN=certstrap
 # CERTSTRAP_BIN=/Users/socheat/Workspace/socheatsok78-lab/certstrap/certstrap
 
-ROOTCA_COMMON_NAME="SoramitsuKhmer ECC Root CA"
-ROOTCA_PASSPHRASE="RUY5MDU5NUQtRTE3NC00NkI5LThGNkUtQzRFQUY3OTdCMTQxCg=="
-_ROOTCA_COMMON_NAME=${ROOTCA_COMMON_NAME// /_}
 echo
 echo Generate Root Certification Authority: ${ROOTCA_COMMON_NAME}
 echo
+ROOTCA_COMMON_NAME="SoramitsuKhmer ECC Root CA"
+_ROOTCA_COMMON_NAME=${ROOTCA_COMMON_NAME// /_}
 if [ ! -f "out/${_ROOTCA_COMMON_NAME}.crt" ]; then
+    _ROOTCA_PASSPHRASE=$(openssl rand -base64 32)
     ${CERTSTRAP_BIN} init \
         --common-name "${ROOTCA_COMMON_NAME}" \
         --organization "Soramitsu Khmer" \
@@ -20,8 +20,9 @@ if [ ! -f "out/${_ROOTCA_COMMON_NAME}.crt" ]; then
         --curve "P-384" \
         --passphrase "${ROOTCA_PASSPHRASE}" \
         --exclude-path-length
+    echo "${_ROOTCA_PASSPHRASE}" > "out/${_ROOTCA_COMMON_NAME}.passphrase"
     mkdir -p "${ROOTCA_COMMON_NAME}"
-    cp out/${_ROOTCA_COMMON_NAME}.{crl,crt,key} "${ROOTCA_COMMON_NAME}"
+    cp out/${_ROOTCA_COMMON_NAME}.{crl,crt,key,passphrase} "${ROOTCA_COMMON_NAME}"
 fi
 openssl x509 -in "out/${_ROOTCA_COMMON_NAME}.crt" -text -noout
 
