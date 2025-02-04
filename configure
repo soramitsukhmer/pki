@@ -18,6 +18,7 @@ if [ ! -f "out/${_ROOTCA_COMMON_NAME}.crt" ]; then
         --country "KH" \
         --expires "15 years" \
         --curve "P-384" \
+        --crl-distribution-point "https://soramitsukhmer.com/root.crl" \
         --passphrase "${ROOTCA_PASSPHRASE}" \
         --exclude-path-length
     echo "${_ROOTCA_PASSPHRASE}" > "out/${_ROOTCA_COMMON_NAME}.passphrase"
