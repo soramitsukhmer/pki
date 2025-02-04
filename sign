@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+SIGNING_CA=$1
+SIGNING_CA_CLEANED=${SIGNING_CA// /_}
+SIGNING_CA_PASSPHRASE=$(cat "out/${SIGNING_CA_CLEANED}.passphrase")
+
+REQUEST_CSR=$2
+REQUEST_CSR_CLEANED=${REQUEST_CSR// /_}
+shift 2
+
+if [[ -n "${SIGNING_CA_PASSPHRASE}" ]]; then
+    set -- --passphrase "${SIGNING_CA_PASSPHRASE}" ${@}
+fi
+
+set -x
+certstrap sign --csr "csr/${REQUEST_CSR_CLEANED}.csr" --cert "csr/${REQUEST_CSR_CLEANED}.crt" --CA "${SIGNING_CA}" "${REQUEST_CSR}" ${@}
