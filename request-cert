@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+REQUEST_CSR=$1
+REQUEST_CSR_CLEANED=${REQUEST_CSR// /_}
+shift
+
+if [ -f "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.crt" ]; then
+    echo "Already exists"
+    echo ""
+    echo "The certificate for \"${REQUEST_CSR}\" already exists, located at \"${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.crt\"!"
+    echo ""
+    echo "If you want to sign a new certificate, please remove the existing one first."
+    exit 0
+fi
+
+echo "Creating directory for request: ${REQUEST_CSR_CLEANED}"
+mkdir -p "${REQUEST_CSR}"
+
+echo "Generate certificate signing request for ${REQUEST_CSR}"
+set -x
+certstrap --depot-path "${REQUEST_CSR}" \
+    request-cert \
+        --common-name "${REQUEST_CSR}" \
+        --organization "Soramitsu Khmer" \
+        --organizational-unit "Soramitsu Khmer Certification Authority" \
+        --country "KH" \
+        --key-bits 4096 \
+        --curve "P-384" \
+        "${@}"
