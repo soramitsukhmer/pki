@@ -3,15 +3,30 @@ set -e
 
 SIGNING_CA=$1
 SIGNING_CA_CLEANED=${SIGNING_CA// /_}
-SIGNING_CA_PASSPHRASE=$(cat "out/${SIGNING_CA_CLEANED}.passphrase")
 
 REQUEST_CSR=$2
 REQUEST_CSR_CLEANED=${REQUEST_CSR// /_}
 shift 2
 
-if [[ -n "${SIGNING_CA_PASSPHRASE}" ]]; then
-    set -- --passphrase "${SIGNING_CA_PASSPHRASE}" ${@}
+# Check if the certificate signing request exists
+if [ ! -f "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.csr" ]; then	
+	echo "The file \"${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.csr\" not found"
+	exit 1
 fi
 
-set -x
-certstrap sign --csr "csr/${REQUEST_CSR_CLEANED}.csr" --cert "csr/${REQUEST_CSR_CLEANED}.crt" --CA "${SIGNING_CA}" "${REQUEST_CSR}" ${@}
+# Check if the certificate exists
+if [ -f "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.crt" ]; then	
+	echo "Already exists"
+    echo ""
+    echo "The certificate for \"${REQUEST_CSR}\" already exists, located at \"${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.crt\"!"
+    echo ""
+    echo "If you want to sign a new certificate, please remove the existing one first."
+    exit 0
+fi
+
+SIGNING_CA_PASSPHRASE=$(cat "${SIGNING_CA}/${SIGNING_CA_CLEANED}.passphrase")
+echo "${SIGNING_CA_PASSPHRASE}" |\
+	certstrap --depot-path "${SIGNING_CA}" \
+		sign --csr "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.csr" --cert "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.crt" --CA "${SIGNING_CA}" "${REQUEST_CSR}" ${@}
+echo "Certificate signed successfully"
+exit 0
