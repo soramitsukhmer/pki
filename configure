@@ -1,22 +1,26 @@
 #!/bin/bash
 set -e
 
-CERTSTRAP_BIN=certstrap
-# CERTSTRAP_BIN=/Users/socheat/Workspace/socheatsok78-lab/certstrap/certstrap
+# CERTSTRAP_BIN=certstrap
+CERTSTRAP_BIN="$HOME/Workspace/github.com/socheatsok78-lab/certstrap/certstrap"
+
+C="KH"
+O="Soramitsu Khmer CO., LTD."
+OU="Soramitsu Khmer CO., LTD.'s Certification Authority"
 
 echo
 echo Generate Root Certification Authority: ${ROOTCA_COMMON_NAME}
 echo
-ROOTCA_COMMON_NAME="SoramitsuKhmer ECC Root CA"
+ROOTCA_COMMON_NAME="Soramitsu Khmer ECC Root CA"
 _ROOTCA_COMMON_NAME=${ROOTCA_COMMON_NAME// /_}
 if [ ! -f "out/${_ROOTCA_COMMON_NAME}.crt" ]; then
     _ROOTCA_PASSPHRASE=$(openssl rand -base64 32)
     ${CERTSTRAP_BIN} init \
         --common-name "${ROOTCA_COMMON_NAME}" \
-        --organization "Soramitsu Khmer" \
-        --organizational-unit "Soramitsu Khmer Certification Authority" \
-        --country "KH" \
-        --expires "15 years" \
+        --organization "${O}" \
+        --organizational-unit "${OU}" \
+        --country "${C}" \
+        --expires "30 years" \
         --curve "P-384" \
         --crl-distribution-point "https://soramitsukhmer.com/root.crl" \
         --passphrase "${ROOTCA_PASSPHRASE}" \
@@ -28,8 +32,8 @@ fi
 openssl x509 -in "out/${_ROOTCA_COMMON_NAME}.crt" -text -noout
 
 INTERMEDIATECAS=(
-    "SoramitsuKhmer ECC Domain Validation Certification Authority"
-    "SoramitsuKhmer ECC Developer ID Certification Authority"
+    "Soramitsu Khmer ECC Developer ID Certification Authority"
+    "Soramitsu Khmer ECC Domain Validation Certification Authority"
 )
 
 for INTERMEDIATECA_COMMON_NAME in "${INTERMEDIATECAS[@]}"; do
@@ -41,15 +45,15 @@ for INTERMEDIATECA_COMMON_NAME in "${INTERMEDIATECAS[@]}"; do
     if [ ! -f "out/${_INTERMEDIATECA_COMMON_NAME}.crt" ]; then
         ${CERTSTRAP_BIN} request-cert \
             --common-name "${INTERMEDIATECA_COMMON_NAME}" \
-            --organization "Soramitsu Khmer" \
-            --organizational-unit "Soramitsu Khmer Certification Authority" \
-            --country "KH" \
+            --organization "${O}" \
+            --organizational-unit "${OU}" \
+            --country "${C}" \
             --curve "P-384" \
             --passphrase "${_INTERMEDIATECA_PASSPHRASE}"
         ${CERTSTRAP_BIN} sign "${INTERMEDIATECA_COMMON_NAME}" \
             --CA "${ROOTCA_COMMON_NAME}" \
             --passphrase "${ROOTCA_PASSPHRASE}" \
-            --expires "5 years" \
+            --expires "15 years" \
             --path-length 1 \
             --intermediate
         echo "${_INTERMEDIATECA_PASSPHRASE}" > "out/${_INTERMEDIATECA_COMMON_NAME}.passphrase"

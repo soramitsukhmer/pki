@@ -17,14 +17,18 @@ fi
 echo "Creating directory for request: ${REQUEST_CSR_CLEANED}"
 mkdir -p "${REQUEST_CSR}"
 
+C="KH"
+O="Soramitsu Khmer CO., LTD."
+OU="Soramitsu Khmer CO., LTD.'s Certification Authority"
+
 echo "Generate certificate signing request for ${REQUEST_CSR}"
 set -x
 certstrap --depot-path "${REQUEST_CSR}" \
     request-cert \
         --common-name "${REQUEST_CSR}" \
-        --organization "Soramitsu Khmer" \
-        --organizational-unit "Soramitsu Khmer Certification Authority" \
-        --country "KH" \
+        --organization "${O}" \
+        --organizational-unit "${OU}" \
+        --country "${C}" \
         --key-bits 4096 \
         --curve "P-384" \
         "${@}"

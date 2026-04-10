@@ -12,7 +12,7 @@ mkdir -p ~/PKI
 cd ~/PKI
 
 # Create a new certificate signing request (CSR) for the Developer ID Certification Authority for Individual
-certstrap request-cert --common-name "Developer ID: $(whoami)" --curve "P-384"
+certstrap request-cert --common-name "Soramitsu Khmer Developer ID: $(whoami)" --curve "P-384"
 ```
 
 The CSR will be saved to `out/Developer_ID_$(whoami).csr`. Please send this file to the Soramitsu Khmer Certification Authority for signing.
@@ -26,7 +26,7 @@ Once you receive the signed certificate, please import it into `~/PKI/out`. Plea
 certstrap request-cert --common-name "example.com" --domain example.com --curve "P-384"
 
 # Sign the certificate using the Developer ID Certification Authority for Individual
-certstrap sign example.com --CA "Developer ID: $(whoami)"
+certstrap sign example.com --CA "Soramitsu Khmer Developer ID: $(whoami)"
 ```
 
 ### Example

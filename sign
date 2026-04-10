@@ -27,6 +27,6 @@ fi
 SIGNING_CA_PASSPHRASE=$(cat "${SIGNING_CA}/${SIGNING_CA_CLEANED}.passphrase")
 echo "${SIGNING_CA_PASSPHRASE}" |\
 	certstrap --depot-path "${SIGNING_CA}" \
-		sign --csr "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.csr" --cert "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.crt" --CA "${SIGNING_CA}" "${REQUEST_CSR}" ${@}
+		sign --csr "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.csr" --cert "${REQUEST_CSR}/${REQUEST_CSR_CLEANED}.crt" --CA "${SIGNING_CA}" "${REQUEST_CSR}" "${@}"
 echo "Certificate signed successfully"
 exit 0

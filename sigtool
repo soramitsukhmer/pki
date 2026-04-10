@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+SCRIPTDIR=$(dirname "$(readlink -f "$0")")
+signer="$SCRIPTDIR/Soramitsu Khmer ECC Root CA/Soramitsu_Khmer_ECC_Root_CA.crt"
+inkey="$SCRIPTDIR/Soramitsu Khmer ECC Root CA/Soramitsu_Khmer_ECC_Root_CA.key"
+certfile="$SCRIPTDIR/Soramitsu Khmer ECC Root CA/Soramitsu_Khmer_ECC_Root_CA.crt"
+inputFile="$1"
+outputFile="$2"
+openssl smime -sign -signer "$signer" -inkey "$inkey" -certfile "$certfile" -nodetach -outform der -in "$inputFile" -out "$outputFile"
